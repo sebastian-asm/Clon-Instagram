@@ -11,7 +11,7 @@ const fadeInKeyframes = keyframes`
   }
 `;
 
-// En caso de no recibir níngun argumento por defecto en un {} vacío
+// En caso de no recibir níngun argumento por defecto, es un {} vacío
 export const fadeIn = ({ time = '1s', type = 'ease' } = {}) => css`
   animation: ${time} ${fadeInKeyframes} ${type};
 `;

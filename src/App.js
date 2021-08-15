@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'wouter';
 
 import { Logo } from './components/Logo';
+import { Navbar } from './components/Navbar';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 
@@ -12,6 +13,7 @@ export default function App() {
     <>
       <GlobalStyle />
       <Logo />
+
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/pet/:categoryId">
@@ -21,6 +23,8 @@ export default function App() {
           {(params) => <Detail detailId={params.detailId} />}
         </Route>
       </Switch>
+
+      <Navbar />
     </>
   );
 }

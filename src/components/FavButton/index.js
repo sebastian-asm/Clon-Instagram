@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { HiOutlineThumbUp, HiThumbUp } from 'react-icons/hi';
 
 import { Button } from './styles';
