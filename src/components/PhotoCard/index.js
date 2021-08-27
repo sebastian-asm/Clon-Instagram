@@ -4,8 +4,8 @@ import { useMutation } from '@apollo/client';
 
 import { FavButton } from '../FavButton';
 import { toggleLike } from '../../graphql/mutations/toggleLike';
-import useLocalStorage from '../hooks/useLocalStorage';
-import useNearScreen from '../hooks/useNearScreen';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import useNearScreen from '../../hooks/useNearScreen';
 
 import { Article, ImgWrapper, Img } from './styles';
 
