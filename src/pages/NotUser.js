@@ -1,28 +1,59 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useMutation } from '@apollo/client';
 
+import { login } from '../graphql/mutations/login';
 import { register } from '../graphql/mutations/register';
+import { Context } from '../context/Context';
 import UserForm from '../components/UserForm';
-import Context from '../context/Context';
 
 export default function NotUser() {
-  const [registerMutation] = useMutation(register);
+  const { activateAuth } = useContext(Context);
+
+  const [
+    registerMutation,
+    { loading: loadingRegister, error: errorRegister },
+  ] = useMutation(register);
+
+  const [
+    loginMutation,
+    { loading: loadingLogin, error: errorLogin },
+  ] = useMutation(login);
+
+  const onSubmitRegister = ({ email, password }) => {
+    const variables = { variables: { input: { email, password } } };
+    registerMutation(variables)
+      .then(({ data }) => {
+        const { signup } = data;
+        activateAuth(signup);
+      })
+      .catch(console.log);
+  };
+
+  const onSubmitLogin = ({ email, password }) => {
+    const variables = { variables: { input: { email, password } } };
+    loginMutation(variables)
+      .then(({ data }) => {
+        const { login } = data;
+        activateAuth(login);
+      })
+      .catch(console.log);
+  };
 
   return (
-    <Context.Consumer>
-      {({ activateAuth }) => {
-        const onSubmit = ({ email, password }) => {
-          const variables = { variables: { input: { email, password } } };
-          registerMutation(variables).then(activateAuth);
-        };
+    <>
+      <UserForm
+        onSubmit={onSubmitRegister}
+        error={errorRegister && 'El usuario ya esta registrado.'}
+        disabled={loadingRegister}
+        title="Registrarse"
+      />
 
-        return (
-          <>
-            <UserForm onSubmit={onSubmit} title="Registrarse" />
-            <UserForm onSubmit={activateAuth} title="Iniciar sesión" />
-          </>
-        );
-      }}
-    </Context.Consumer>
+      <UserForm
+        onSubmit={onSubmitLogin}
+        error={errorLogin && 'Credenciales inválidas.'}
+        disabled={loadingLogin}
+        title="Iniciar sesión"
+      />
+    </>
   );
 }
