@@ -7,6 +7,20 @@
     <title>React Avanzado</title>
   </head>
   <body>
+    <noscript>Esta app necesita JavaScript para funcionar.</noscript>
     <div id="app"></div>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .then((registration) =>
+              console.log('SW registrado correctamente', registration)
+            )
+            .catch((error) => console.log('Error al registrar el SW', error));
+        });
+      }
+    </script>
   </body>
 </html>
