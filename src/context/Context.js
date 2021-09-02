@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 
-export const Context = createContext();
+const Context = createContext();
 
 const Provider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(() => {
@@ -22,4 +22,4 @@ const Provider = ({ children }) => {
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
-export default { Provider, Consumer: Context.Consumer };
+export { Provider, Context };

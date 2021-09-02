@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { useQuery } from '@apollo/client';
 
 import { Category } from '../Category';
 import { List, Item } from './styles';
 import { getCategories } from '../../graphql/queries/getCategories';
 
-export const ListOfCategories = () => {
+const ListOfCategoriesComponent = () => {
   const [showFixed, setShowFixed] = useState(false);
   const { data, loading, error } = useQuery(getCategories);
 
@@ -40,3 +40,6 @@ export const ListOfCategories = () => {
     </>
   );
 };
+
+// No se volvera a renderizar si el listado no cambia
+export const ListOfCategories = memo(ListOfCategoriesComponent);

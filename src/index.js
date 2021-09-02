@@ -10,7 +10,7 @@ import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 
 import App from './App';
-import Context from './context/Context';
+import { Provider } from './context/Context';
 
 const httpLink = createHttpLink({
   uri: 'https://petgram-react-avanzado-omega.vercel.app/graphql',
@@ -38,10 +38,10 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <Context.Provider>
-    <ApolloProvider client={client}>
+  <ApolloProvider client={client}>
+    <Provider>
       <App />
-    </ApolloProvider>
-  </Context.Provider>,
+    </Provider>
+  </ApolloProvider>,
   document.getElementById('app')
 );

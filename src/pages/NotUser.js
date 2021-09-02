@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useMutation } from '@apollo/client';
+import { useLocation } from 'wouter';
 
 import { login } from '../graphql/mutations/login';
 import { register } from '../graphql/mutations/register';
@@ -8,6 +9,7 @@ import UserForm from '../components/UserForm';
 
 export default function NotUser() {
   const { activateAuth } = useContext(Context);
+  const [, setLocation] = useLocation();
 
   const [
     registerMutation,
@@ -25,6 +27,7 @@ export default function NotUser() {
       .then(({ data }) => {
         const { signup } = data;
         activateAuth(signup);
+        setLocation('/');
       })
       .catch(console.log);
   };
@@ -35,6 +38,7 @@ export default function NotUser() {
       .then(({ data }) => {
         const { login } = data;
         activateAuth(login);
+        setLocation('/');
       })
       .catch(console.log);
   };
