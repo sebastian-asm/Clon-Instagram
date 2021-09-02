@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'wouter';
 import { useMutation } from '@apollo/client';
 
@@ -35,4 +36,20 @@ export const PhotoCard = ({ id, liked, likes = 0, src = DEFAULT_IMAGE }) => {
       )}
     </Article>
   );
+};
+
+PhotoCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  liked: PropTypes.bool.isRequired,
+  src: PropTypes.string.isRequired,
+  // Validando que likes sea un número pero positivo
+  likes: (props, propName, componentName) => {
+    const propValue = props[propName];
+    if (propValue === undefined) {
+      return new Error(`${propName} debe estar definido`);
+    }
+    if (propValue < 0) {
+      return new Error(`${propName} el valor debe ser mayor a 0`);
+    }
+  },
 };
